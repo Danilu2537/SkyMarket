@@ -1,6 +1,5 @@
-from django.contrib.auth.models import (
-    BaseUserManager
-)
+from django.contrib.auth.models import BaseUserManager
+
 
 class UserManager(BaseUserManager):
     """
@@ -15,7 +14,7 @@ class UserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             phone=phone,
-            role="user"
+            role='user',
         )
         user.is_active = True
         user.set_password(password)
@@ -35,7 +34,7 @@ class UserManager(BaseUserManager):
             last_name=last_name,
             phone=phone,
             password=password,
-            role="admin"
+            role='admin',
         )
 
         user.save(using=self._db)

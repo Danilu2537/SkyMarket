@@ -21,7 +21,7 @@ function EditCommentPopup({
       setInput("");
     }
   }
-  
+
   function onEditComment(e) {
     e.preventDefault();
     handleEdit({

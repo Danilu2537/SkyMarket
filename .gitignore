@@ -130,3 +130,6 @@ dmypy.json
 .DS_Store
 .idea/
 ./django_static
+
+# ruff
+.ruff_cache

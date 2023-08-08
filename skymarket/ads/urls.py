@@ -1,7 +1,6 @@
+from ads.views import AdViewSet, CommentViewSet, UserAdsListView
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
-
-from ads.views import AdViewSet, UserAdsListView, CommentViewSet
 
 ads_router = SimpleRouter()
 ads_router.register('', AdViewSet)

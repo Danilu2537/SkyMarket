@@ -1,6 +1,5 @@
+from ads.models import Ad, Comment
 from rest_framework import serializers
-
-from ads.models import Comment, Ad
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
@@ -43,6 +42,13 @@ class AdDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad
         fields = [
-            'pk', 'title', 'price', 'description', 'image',
-            'phone', 'author_first_name', 'author_last_name', 'author_id'
+            'pk',
+            'title',
+            'price',
+            'description',
+            'image',
+            'phone',
+            'author_first_name',
+            'author_last_name',
+            'author_id',
         ]

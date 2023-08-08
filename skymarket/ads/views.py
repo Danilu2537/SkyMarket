@@ -1,24 +1,24 @@
-from rest_framework import viewsets, status
+from ads.filters import AdFilterSet
+from ads.models import Ad, Comment
+from ads.permissions import IsAdmin, IsOwner
+from ads.serializers import (
+    AdCreateSerializer,
+    AdDetailSerializer,
+    AdSerializer,
+    CommentCreateSerializer,
+    CommentSerializer,
+)
+from rest_framework import status, viewsets
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-
-from ads.models import Ad, Comment
-from ads.permissions import IsOwner, IsAdmin
-from ads.serializers import  AdSerializer, AdDetailSerializer, CommentSerializer, \
-    CommentCreateSerializer, AdCreateSerializer
-
-from ads.filters import AdFilterSet
 
 
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
     filterset_class = AdFilterSet
 
-    serializers = {
-        'retrieve': AdDetailSerializer,
-        'create': AdCreateSerializer,
-    }
+    serializers = {'retrieve': AdDetailSerializer, 'create': AdCreateSerializer}
     default_serializer = AdSerializer
 
     permissions = {
@@ -33,7 +33,9 @@ class AdViewSet(viewsets.ModelViewSet):
         return self.serializers.get(self.action, self.default_serializer)
 
     def get_permissions(self):
-        self.permission_classes = self.permissions.get(self.action, self.default_permission)
+        self.permission_classes = self.permissions.get(
+            self.action, self.default_permission
+        )
         return super().get_permissions()
 
     def create(self, request, *args, **kwargs):
@@ -43,9 +45,7 @@ class AdViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
-    serializers = {
-        'create': CommentCreateSerializer,
-    }
+    serializers = {'create': CommentCreateSerializer}
     default_serializer = CommentSerializer
 
     permissions = {
@@ -60,7 +60,9 @@ class CommentViewSet(viewsets.ModelViewSet):
         return self.serializers.get(self.action, self.default_serializer)
 
     def get_permissions(self):
-        self.permission_classes = self.permissions.get(self.action, self.default_permission)
+        self.permission_classes = self.permissions.get(
+            self.action, self.default_permission
+        )
         return super().get_permissions()
 
     def list(self, request, *args, **kwargs):
@@ -74,7 +76,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         data = {
             'ad': ad_pk,
             'author': request.user.pk,
-            'text': request.data.get('text')
+            'text': request.data.get('text'),
         }
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
